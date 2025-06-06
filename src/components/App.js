@@ -1,22 +1,35 @@
-import React, { useState } from "react";
+import React, { createContext, useState } from "react";
 import ShoppingList from "./ShoppingList";
 import Header from "./Header";
 import itemData from "../data/items";
 
+const AddItemsContext = createContext();
+
 function App() {
-  const [items, setItems] = useState(itemData);
-  const [isDarkMode, setIsDarkMode] = useState(false);
+	const [items, setItems] = useState(itemData);
+	const [isDarkMode, setIsDarkMode] = useState(false);
 
-  function handleDarkModeClick() {
-    setIsDarkMode((isDarkMode) => !isDarkMode);
-  }
+	function addItems(newItem) {
+    console.log("addingItems")
+		setItems([...items, newItem]);
+	}
 
-  return (
-    <div className={"App " + (isDarkMode ? "dark" : "light")}>
-      <Header isDarkMode={isDarkMode} onDarkModeClick={handleDarkModeClick} />
-      <ShoppingList items={items} />
-    </div>
-  );
+	function handleDarkModeClick() {
+		setIsDarkMode((isDarkMode) => !isDarkMode);
+	}
+
+	return (
+		<div className={"App " + (isDarkMode ? "dark" : "light")}>
+			<Header
+				isDarkMode={isDarkMode}
+				onDarkModeClick={handleDarkModeClick}
+			/>
+			<AddItemsContext.Provider value={{ addItems }}>
+				<ShoppingList items={items} />
+			</AddItemsContext.Provider>
+		</div>
+	);
 }
 
 export default App;
+export { AddItemsContext };
