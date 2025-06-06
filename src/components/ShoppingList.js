@@ -5,7 +5,7 @@ import Item from "./Item";
 
 function ShoppingList({ items }) {
 	const [selectedCategory, setSelectedCategory] = useState("All");
-	const [nameMatch, setNameMatch] = useState(""); //state here, so that the item form can get to it
+	const [search, setSearch] = useState(""); //state here, so that the item form can get to it
 
 	function handleCategoryChange(event) {
 		setSelectedCategory(event.target.value);
@@ -13,7 +13,7 @@ function ShoppingList({ items }) {
 
 	function handleInputChange(e) {
 		//control the component
-		setNameMatch(e.target.value);
+		setSearch(e.target.value);
 	}
 
 	function nameMatcher(name, itemName) {
@@ -26,7 +26,7 @@ function ShoppingList({ items }) {
 
 	const itemsToDisplay = items.filter((item) => {
 		//updated this to take the nameMatcher into accout
-		if (nameMatcher(nameMatch, item.name)) {
+		if (nameMatcher(search, item.name)) {
 			if (selectedCategory === "All") return true;
 
 			return item.category === selectedCategory;
@@ -40,7 +40,7 @@ function ShoppingList({ items }) {
 			<Filter
 				onCategoryChange={handleCategoryChange}
 				onSearchChange={handleInputChange}
-				nameMatch={nameMatch}
+				search={search}
 			/>
 			<ul className="Items">
 				{itemsToDisplay.map((item) => (

@@ -1,6 +1,6 @@
 import React from "react";
 
-function Filter({ onCategoryChange, nameMatch, onSearchChange }) {
+function Filter({ onCategoryChange, search, onSearchChange }) {
 	return (
 		<div className="Filter">
 			<input
@@ -10,7 +10,7 @@ function Filter({ onCategoryChange, nameMatch, onSearchChange }) {
 				onChange={(e) => {
 					onSearchChange(e);
 				}}
-				value={nameMatch}
+				value={search}
 			/>
 			<select name="filter" onChange={onCategoryChange}>
 				<option value="All">Filter by category</option>
